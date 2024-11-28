@@ -39,8 +39,8 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 class NameForm(FlaskForm):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    role = SelectField('Role?', choices=[('Administrator', 'Administrator'), ('Moderator', 'Moderator'), ('User', 'User')])
+    name = StringField('Qual seu nome?', validators=[DataRequired()])
+    role = SelectField('Qual sua classe?', choices=[('Administrator', 'Administrator'), ('Moderator', 'Moderator'), ('User', 'User')])
     submit = SubmitField('Submit')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -65,10 +65,10 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
-            flash('You were successfully registered.')
+            flash('Você foi registrado no sistema com sucesso.')
         else:
             session['known'] = True
-            flash('Welcome back!')
+            flash('Bem vindo de volta !')
         session['name'] = form.name.data
         return redirect(url_for('index'))
     return render_template('index.html', form=form, name=session.get('name'),
